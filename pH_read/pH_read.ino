@@ -5,7 +5,6 @@ HackaDev ImpactUVA
 2015/12/11
 */
 
-
 void setup() {
   // put your setup code here, to run once:
 
@@ -19,56 +18,8 @@ int i = 0;
 }
 
 void loop() {
-  char a=0, b=0, c = 0;
 
-
-  if (digitalRead(20+9))
-    a |= 1;
-  if (digitalRead(20+18))
-    a |= 2;
-  if (digitalRead(20+17))
-    a |= 4;
-  if (digitalRead(20+16))
-    a |= 8;  
-  if (digitalRead(20+15))
-    a |= 16;
-  if (digitalRead(20+8))
-    a |= 32;
-   if (digitalRead(20+7))
-    a |= 64;
-
-
-  if (digitalRead(20+5))
-    b |= 1;
-  if (digitalRead(20+6))
-    b |= 2;
-  if (digitalRead(20+13))
-    b |= 4;
-  if (digitalRead(20+12))
-    b |= 8;  
-  if (digitalRead(20+11))
-    b |= 16;
-  if (digitalRead(20+4))
-    b |= 32;
-   if (digitalRead(20+3))
-    b |= 64;
-   /*if (digitalRead(20+2))
-   {
-    b |= 128;   //first digit indicating 1
-   }*/
-  
-
-    //Serial.write(255);
-    //Serial.print(a, BIN);
-    //Serial.print(" ");
-    //Serial.println(b, BIN);
-    if(decode_value(a)>=0&&decode_value(b)>=0){
-	    Serial.print(decode_value(a));
-	    Serial.print(".");
-	    Serial.println(decode_value(b));
-    }
- 
-
+	Serial.println(get_ph(100));
 }
 
 int decode_value(char val){
@@ -114,3 +65,83 @@ int decode_value(char val){
 	return value;
 }
 
+float get_ph(int sample){
+
+	float phVal=0;
+	int val2;
+	int val3;
+	boolean one;
+
+	for(int i=0;i<sample;i++){
+		char a=0, b=0, c = 0;
+
+		do{
+			  if (digitalRead(20+9))
+			    a |= 1;
+			  if (digitalRead(20+18))
+			    a |= 2;
+			  if (digitalRead(20+17))
+			    a |= 4;
+			  if (digitalRead(20+16))
+			    a |= 8;  
+			  if (digitalRead(20+15))
+			    a |= 16;
+			  if (digitalRead(20+8))
+			    a |= 32;
+			   if (digitalRead(20+7))
+			    a |= 64;
+
+
+			  if (digitalRead(20+5))
+			    b |= 1;
+			  if (digitalRead(20+6))
+			    b |= 2;
+			  if (digitalRead(20+13))
+			    b |= 4;
+			  if (digitalRead(20+12))
+			    b |= 8;  
+			  if (digitalRead(20+11))
+			    b |= 16;
+			  if (digitalRead(20+4))
+			    b |= 32;
+			   if (digitalRead(20+3))
+			    b |= 64;
+			   /*if (digitalRead(20+2))
+			   {
+			    b |= 128;   //first digit indicating 1
+			   }*/
+			  
+
+			    //Serial.write(255);
+			    //Serial.print(a, BIN);
+			    //Serial.print(" ");
+			    //Serial.println(b, BIN);
+			    /*if(decode_value(a)>=0&&decode_value(b)>=0){
+				    Serial.print(decode_value(a));
+				    Serial.print(".");
+				    Serial.println(decode_value(b));
+			 }*/
+
+
+			one = digitalRead(22);
+			val2 = decode_value(a);
+			val3 = decode_value(b);
+		} while(val2<0||val3<0);
+
+		String value="";
+
+		if(one){
+			value+=1;
+		}
+		
+		value+=String(val2);
+		value+=String(val3);
+
+		phVal += value.toInt();
+	}
+
+	phVal /= (sample*10);
+
+	return phVal;
+
+}
