@@ -11,7 +11,7 @@ void setup() {
 int i = 0;
  for (int i = 1; i <= 18; i++)
  {
-    pinMode(20+i, INPUT);
+    pinMode(30+i, INPUT);
  }
 
   Serial.begin(9600);
@@ -76,37 +76,37 @@ float get_ph(int sample){
 		char a=0, b=0, c = 0;
 
 		do{
-			  if (digitalRead(20+9))
+			  if (digitalRead(30+9))
 			    a |= 1;
-			  if (digitalRead(20+18))
+			  if (digitalRead(30+18))
 			    a |= 2;
-			  if (digitalRead(20+17))
+			  if (digitalRead(30+17))
 			    a |= 4;
-			  if (digitalRead(20+16))
+			  if (digitalRead(30+16))
 			    a |= 8;  
-			  if (digitalRead(20+15))
+			  if (digitalRead(30+15))
 			    a |= 16;
-			  if (digitalRead(20+8))
+			  if (digitalRead(30+8))
 			    a |= 32;
-			   if (digitalRead(20+7))
+			   if (digitalRead(30+7))
 			    a |= 64;
 
 
-			  if (digitalRead(20+5))
+			  if (digitalRead(30+5))
 			    b |= 1;
-			  if (digitalRead(20+6))
+			  if (digitalRead(30+6))
 			    b |= 2;
-			  if (digitalRead(20+13))
+			  if (digitalRead(30+13))
 			    b |= 4;
-			  if (digitalRead(20+12))
+			  if (digitalRead(30+12))
 			    b |= 8;  
-			  if (digitalRead(20+11))
+			  if (digitalRead(30+11))
 			    b |= 16;
-			  if (digitalRead(20+4))
+			  if (digitalRead(30+4))
 			    b |= 32;
-			   if (digitalRead(20+3))
+			   if (digitalRead(30+3))
 			    b |= 64;
-			   /*if (digitalRead(20+2))
+			   /*if (digitalRead(30+2))
 			   {
 			    b |= 128;   //first digit indicating 1
 			   }*/
@@ -123,7 +123,7 @@ float get_ph(int sample){
 			 }*/
 
 
-			one = digitalRead(22);
+			one = digitalRead(32);
 			val2 = decode_value(a);
 			val3 = decode_value(b);
 		} while(val2<0||val3<0);
