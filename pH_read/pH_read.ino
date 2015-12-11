@@ -19,7 +19,6 @@ int i = 0;
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
   char a=0, b=0, c = 0;
 
 
@@ -60,10 +59,14 @@ void loop() {
   
 
     //Serial.write(255);
-    Serial.print(a, BIN);
-    Serial.print(" ");
-    Serial.println(b, BIN);
-    Serial.println(decode_value(a));
+    //Serial.print(a, BIN);
+    //Serial.print(" ");
+    //Serial.println(b, BIN);
+    if(decode_value(a)>=0&&decode_value(b)>=0){
+	    Serial.print(decode_value(a));
+	    Serial.print(".");
+	    Serial.println(decode_value(b));
+    }
  
 
 }
